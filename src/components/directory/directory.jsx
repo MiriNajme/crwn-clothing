@@ -8,7 +8,7 @@ class Directory extends React.Component {
         super();
 
         this.state = {
-            sections: [{
+            categories: [{
                 title: "hats",
                 imgUrl: "https://i.ibb.co/cvpntL1/hats.png",
                 id: 1,
@@ -45,8 +45,8 @@ class Directory extends React.Component {
     render() {
         return (
             <div className="directory-menu">
-                {this.state.sections.map(({ id, ...otherSectionProps }) => (
-                    <MenuItem key={id} {...otherSectionProps} />
+                {this.state.categories.map((category) => (
+                    <MenuItem key={category.id} category={category} />
                 ))}
             </div>
         );
