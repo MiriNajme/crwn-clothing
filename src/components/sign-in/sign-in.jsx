@@ -1,47 +1,71 @@
-import React from "react";
+import { useState } from "react";
 
 import FormInput from "../../components/form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import { signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from "../../firebase/firebase.utils";
+
 
 import "./sign-in.scss";
+import { async } from "@firebase/util";
 
-class SignIn extends React.Component {
-    constructor() {
-        super();
+const SignInForm = () => {
 
-        this.state = {
-            email: "",
-            password: ""
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const resetFormFields = () => {
+        setEmail("");
+        setPassword("");
+    }
+
+    const signInWithGoogle = async () => {
+        const { user } = await signInWithGooglePopup();
+        await createUserDocumentFromAuth(user);
+    }
+
+
+    const handleSubmit = async (event) => {
+
+        event.preventDefault();
+        try {
+            const response = await signInAuthUserWithEmailAndPassword(email, password);
+            console.log(response);
+            resetFormFields();
+        } catch (error) {
+            switch (error.code) {
+                case "auth/wrong-password":
+                    alert("incorrect password for email");
+                    break
+                case "auth/user-not-found":
+                    alert("no user associated with this email");
+                    break;
+                default:
+                    console.log(error);
+            }
         }
     }
-    handleSubmit = event => {
-        event.preventDefault();
-        this.setState({ email: "", password: "" });
+
+
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        (name === "email") ? setEmail(event.target.value) : setPassword(event.target.value);
     }
 
-    handleChange = event => {
-        const { value, name } = event.target;
-
-        this.setState({ [name]: value });
-    }
-    render() {
-        return (
-            <div className="sign-in">
-                <h2>I already have an account</h2>
-                <span>Sign in with your email and password</span>
-                <form onSubmit={this.handleSubmit}>
-                    <FormInput name="email" handleChange={this.handleChange} label="email" value={this.state.email} required />
-                    <FormInput name="password" type="password" handleChange={this.handleChange} label="password" value={this.state.password} required />
-                    <div className="buttons">
-                        <CustomButton type="submit">SIGN IN</CustomButton>
-                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn> sign in with google </CustomButton>
-                    </div>
-                </form>
-
-            </div>
-        )
-    }
+    return (
+        <div className="sign-in">
+            <h2>I already have an account</h2>
+            <span>Sign in with your email and password</span>
+            <form onSubmit={handleSubmit}>
+                <FormInput name="email" handleChange={handleChange} label="email" value={email} required />
+                <FormInput name="password" type="password" handleChange={handleChange} label="password" value={password} required />
+                <div className="buttons-container">
+                    <CustomButton type="submit">SIGN IN</CustomButton>
+                    <CustomButton type="button" onClick={signInWithGoogle} buttonType="google"> google sign in</CustomButton>
+                </div>
+            </form>
+        </div>
+    );
 }
 
-export default SignIn;
+export default SignInForm;
