@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import { UserProvider } from "./components/contexts/user.contexts";
+import { UserProvider } from "./components/contexts/user.context";
+import { ProductProvider } from "./components/contexts/products.context";
 
 import "./index.scss";
 
@@ -11,7 +12,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductProvider>
+          <App />
+        </ProductProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>

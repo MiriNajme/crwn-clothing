@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../firebase/firebase.utils";
 import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
+import { UserContext } from "../contexts/user.context";
 
 import "./sign-up-form.scss";
 
@@ -47,6 +48,7 @@ const SignUpForm = () => {
         setFormFields({ ...formFields, [name]: value });
     }
     return (
+
         <div className="sign-up-container">
             <h2>Don't have an account?</h2>
             <span>Sign up with your email and password</span>
@@ -58,6 +60,7 @@ const SignUpForm = () => {
                 <CustomButton type="submit" buttonType="google">Sign Up</CustomButton>
             </form>
         </div>
+
     );
 }
 
