@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../firebase/firebase.utils";
 import FormInput from "../form-input/form-input";
-import CustomButton from "../custom-button/custom-button";
+import CustomButton, { BUTTON_TYPE_CLASSES } from "../custom-button/custom-button";
 import { UserContext } from "../contexts/user.context";
 
 import "./sign-up-form.scss";
@@ -24,7 +24,7 @@ const SignUpForm = () => {
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
@@ -57,7 +57,7 @@ const SignUpForm = () => {
                 <FormInput type="email" required onChange={handleChange} name="email" label="email" value={email} />
                 <FormInput type="password" required onChange={handleChange} name="password" label="password" value={password} />
                 <FormInput type="password" required onChange={handleChange} name="confirmPassword" label="Confirm Password" value={confirmPassword} />
-                <CustomButton type="submit" buttonType="google">Sign Up</CustomButton>
+                <CustomButton type="submit" buttonType={BUTTON_TYPE_CLASSES.google}>Sign Up</CustomButton>
             </form>
         </div>
 

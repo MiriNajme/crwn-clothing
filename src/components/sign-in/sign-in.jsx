@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import FormInput from "../../components/form-input/form-input";
-import CustomButton from "../custom-button/custom-button";
+import CustomButton, { BUTTON_TYPE_CLASSES } from "../custom-button/custom-button";
 import { signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from "../../firebase/firebase.utils";
 
 import "./sign-in.scss";
@@ -58,8 +58,8 @@ const SignInForm = () => {
                 <FormInput name="email" handleChange={handleChange} label="email" value={email} required />
                 <FormInput name="password" type="password" handleChange={handleChange} label="password" value={password} required />
                 <div className="buttons-container">
-                    <CustomButton type="submit">SIGN IN</CustomButton>
-                    <CustomButton type="button" onClick={signInWithGoogle} buttonType="google"> google sign in</CustomButton>
+                    <CustomButton type="submit" buttonType={BUTTON_TYPE_CLASSES.base}>SIGN IN</CustomButton>
+                    <CustomButton type="button" onClick={signInWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google}> google sign in</CustomButton>
                 </div>
             </form>
         </div>
