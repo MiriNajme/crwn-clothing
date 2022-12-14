@@ -1,5 +1,5 @@
 import React from "react";
-import MenuItem from "../menu-item/menu-item";
+import DirectoryItem from "../directory-item/directory-item";
 
 import "./directory.scss";
 
@@ -12,33 +12,33 @@ class Directory extends React.Component {
                 title: "hats",
                 imgUrl: "https://i.ibb.co/cvpntL1/hats.png",
                 id: 1,
-                linkUrl: "hats"
+                route: "shop/hats"
             },
             {
                 title: "jackets",
                 imgUrl: "https://i.ibb.co/px2tCc3/jackets.png",
                 id: 2,
-                linkUrl: ""
+                route: "shop/jackets"
             },
             {
                 title: "sneakers",
                 imgUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
                 id: 3,
-                linkUrl: ""
+                route: "shop/sneakers"
             },
             {
                 title: "women",
                 imgUrl: "https://i.ibb.co/GCCdy8t/womens.png",
                 id: 4,
                 size: 'large',
-                linkUrl: ""
+                route: "shop/women"
             },
             {
                 title: "men",
                 imgUrl: "https://i.ibb.co/R70vBrQ/men.png",
                 id: 5,
                 size: 'large',
-                linkUrl: ""
+                route: "shop/men"
             }]
         }
     }
@@ -46,7 +46,7 @@ class Directory extends React.Component {
         return (
             <div className="directory-menu">
                 {this.state.categories.map((category) => (
-                    <MenuItem key={category.id} category={category} />
+                    <DirectoryItem key={category.id} category={category} />
                 ))}
             </div>
         );
