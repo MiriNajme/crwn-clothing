@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../firebase/firebase.utils";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input";
 import CustomButton, { BUTTON_TYPE_CLASSES } from "../custom-button/custom-button";
-import { UserContext } from "../contexts/user.context";
-
+import { selectCurrentUser } from "../../store/user/user.selector";
 import "./sign-up-form.scss";
 
 const defaultFormFields = {
@@ -17,7 +17,7 @@ const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
-    const { setCurrentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
